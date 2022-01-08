@@ -7,6 +7,7 @@
         "autoupdate",
         "Buildah",
         "Caddyfile",
+        "conflist",
         "Containerfile",
         "creds",
         "fedoraproject",
