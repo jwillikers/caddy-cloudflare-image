@@ -51,7 +51,7 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Build the image with Podman
-        run: podman build . -t caddy-cloudflare-${{ matrix.arch }}
+        run: podman build . --arch ${{ matrix.arch }} --tag caddy-cloudflare-${{ matrix.arch }}
 
       - name: Export the image
         run: podman image save --format oci-archive -o caddy-cloudflare-${{ matrix.arch }}.tar localhost/caddy-cloudflare-${{ matrix.arch }}
