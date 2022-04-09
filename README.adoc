@@ -82,73 +82,12 @@ sudo firewall-cmd --add-port=80/tcp --add-port=443/tcp --permanent
 sudo firewall-cmd --reload
 ----
 
-. Enable DNS networking in the default Podman network.
+. Create a new Podman network which will have DNS networking enabled by default.
 +
---
-.~/.config/cni/net.d/87-podman.conflist
-[source,json]
-----
-{
-  "cniVersion": "0.4.0",
-  "name": "podman",
-  "plugins": [
-      {
-          "bridge": "cni-podman0",
-          "hairpinMode": true,
-          "ipMasq": true,
-          "ipam": {
-              "ranges": [
-                  [
-                      {
-                          "gateway": "10.88.0.1",
-                          "subnet": "10.88.0.0/16"
-                      }
-                  ]
-              ],
-              "routes": [
-                  {
-                      "dst": "0.0.0.0/0"
-                  }
-              ],
-              "type": "host-local"
-          },
-          "isGateway": true,
-          "type": "bridge"
-      },
-      {
-          "capabilities": {
-              "portMappings": true
-          },
-          "type": "portmap"
-      },
-      {
-          "type": "firewall"
-      },
-      {
-          "type": "tuning"
-      },
-      {
-        "type": "dnsname",
-        "domainName": "dns.podman",
-        "capabilities": {
-            "aliases": true
-        }
-      }
-  ]
-}
-----
-
-[NOTE]
-====
-It's also possible to create a new CNI network with Podman, which will have the DNS plugin enabled automatically.
-Just run the following to do so.
-
 [source,sh]
 ----
 podman network create
 ----
-====
---
 
 . Make sure to set the CloudFlare TLS encryption mode to `Full (strict)` to avoid problems with Caddy.
 
@@ -186,7 +125,7 @@ podman run \
   --detach \
   --label "io.containers.autoupdate=registry" \
   --name caddy \
-  --net podman \
+  --network podman1 \
   --publish 80:80/tcp \
   --publish 443:443/tcp \
   --rm \
