@@ -86,7 +86,7 @@ sudo firewall-cmd --reload
 +
 [source,sh]
 ----
-podman network create
+podman network create --ipv6
 ----
 
 . Make sure to set the CloudFlare TLS encryption mode to `Full (strict)` to avoid problems with Caddy.
