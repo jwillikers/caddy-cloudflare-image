@@ -45,7 +45,7 @@ Labels::
 
 == Quick Start
 
-I recommend putting the Caddy container with all the containers it will proxy on a dedicated CNI network with the DNS plugin enabled.
+I recommend putting the Caddy container along with all of the containers it will proxy on a dedicated CNI network with the DNS plugin enabled.
 This makes it easy to delegate to the corresponding containers and doesn't require port-forwarding on their part, which means port address conflicts won't be an issue.
 A dedicated CNI network also provides better isolation.
 If you need to, you can also use the Caddy container with host networking with other containers using host networking or those using the default `slirp4netns` networking mode.
